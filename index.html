@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue課題＿マンツーマン</title>
+    <link rel="stylesheet" href="dist/css/app.css">
+    <script src="https://kit.fontawesome.com/cf78c0648b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="main">
+        <section class="section">
+            <div id="app1">
+                <input v-model="todo" class="write" placeholder="ここにTODO内容を書く">
+                <div clss="app2">
+                    <button v-on:click="add_todo" class="submit" type="submit">TODOを追加</button>
+                    <p>{{ todo_list }}</p>
+                </div>
+                <div class="app3">
+                    <i class="fas fa-search"></i>
+                    <input class="search" type="text" placeholder="ここに絞り込みたいキーワードを入力する">
+                </div>
+                <div>
+                    <ul>
+                        <li v-for="(item,index) in todo_list" v-bind:key="item.id" v-if="item.id !== 0" style="list-style: none;">
+                            <div class="app3">
+                                <input type="checkbox">
+                                <input type="text" v-if="item.id !== 0" v-bind:value="item.todo" >
+                                <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
+                                <p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+        </section>
+        
+ <!--       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <section class="section">
+            <div id="app2">
+                <input class="submit" type="submit" value="TODOを追加">
+            </div>
+        </section>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <section class="section">
+            <div id="app3">
+                <i class="fas fa-search"></i>
+                <input class="search" type="text" placeholder="ここに絞り込みたいキーワードを入力する">
+            </div>
+        </section>
+        <section class="section">
+            <ul>
+                <div id="app4">
+                    <li>
+                        <input type="text" v-bind:value="todo">
+                    </li>
+                </div>
+            </ul>
+        </section>
+
+    -->
+        
+        
+    </div>
+    
+    <script src="dist/js/bundle.js"></script>
+</body>
+</html>
