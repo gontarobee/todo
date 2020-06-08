@@ -42,7 +42,7 @@ new Vue({
         todo: this.todo,
         today: Date()
       })
-    },
+    },//githubへの更新の練習
 
     list_delete: function(index){ // 配列を１つ削除
       this.todo_list.splice(index,1)
