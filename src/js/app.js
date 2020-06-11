@@ -24,7 +24,10 @@ new Vue({
     ],
     log: '追加ボタンが押され、「',
     log2: '」が登録された。',
-
+    checkbox: false,
+    styles:{
+        backgroundColor: 'white'
+    }
   },
   methods: {
     add_todo:  function(){
@@ -37,15 +40,27 @@ new Vue({
           var new_id = max
         }
       }
-      this.todo_list.push({ // 配列追加
+       
+      // 配列追加
+      this.todo_list.push({
         id: new_id,
         todo: this.todo,
         today: Date()
       })
     },
 
-    list_delete: function(index){ // 配列を１つ削除
+    // 配列を１つ削除
+    list_delete: function(index){
       this.todo_list.splice(index,1)
+    },
+
+    //check-box がonの時のbackfround-colorの指定
+    li_style: function(){
+      if(this.checkbox){
+        this.styles.backgroundColor = '#C0C0C0'
+      }else{
+        this.styles.backgroundColor = 'white'
+      }
     }
   }
 })

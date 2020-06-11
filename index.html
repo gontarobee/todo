@@ -23,8 +23,8 @@
                 <div>
                     <ul>
                         <li v-for="(item,index) in todo_list" v-bind:key="item.id" v-if="item.id !== 0" style="list-style: none;">
-                            <div class="app3">
-                                <input type="checkbox">
+                            <div class="app3" v-bind:style="{background:styles.backgroundColor}">
+                                <input type="checkbox" v-model="checkbox" v-on:change="li_style">
                                 <input type="text" v-if="item.id !== 0" v-bind:value="item.todo" >
                                 <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
                                 <p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>
