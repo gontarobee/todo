@@ -71,6 +71,7 @@ new Vue({
   },
 
   computed: {
+    
     reverse_todo_list: function() {
       
       //(ケース1)

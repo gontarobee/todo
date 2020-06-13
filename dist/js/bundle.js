@@ -362,6 +362,7 @@ new _vue2.default({
   },
 
   computed: {
+
     reverse_todo_list: function reverse_todo_list() {
 
       //(ケース1)
