@@ -11,28 +11,60 @@
     <div class="main">
         <section class="section">
             <div id="app1">
+                <!-- todo 記入 -->
                 <input v-model="todo" class="write" placeholder="ここにTODO内容を書く">
+                
+                <!-- todo 送信 -->
                 <div clss="app2">
                     <button v-on:click="add_todo" class="submit" type="submit">TODOを追加</button>
-                    <p>{{ todo_list }}</p>
                 </div>
+
+                <!-- 絞り込み検索 -->
                 <div class="app3">
                     <i class="fas fa-search"></i>
-                    <input class="search" type="text" placeholder="ここに絞り込みたいキーワードを入力する">
+                    <input type="text" v-model="kensaku" class="search" placeholder="ここに絞り込みたいキーワードを入力する">
+                    <p>{{ kensaku }}</p>
+                        <table>
+                            <tr v-for="result in filter_todoList">
+                                <td v-text="result.id"></td>
+                                <td v-text="result.name"></td>
+                                <td v-text="result.email"></td>
+                            </tr>
+                        </table>
                 </div>
+
+                <!-- list 作成 -->
                 <div>
                     <ul>
-                        <li v-for="(item,index) in todo_list" v-bind:key="item.id" v-if="item.id !== 0" style="list-style: none;">
-                            <div class="app3" v-bind:style="{background:styles.backgroundColor}">
-                                <input type="checkbox" v-model="checkbox" v-on:change="li_style">
-                                <input type="text" v-if="item.id !== 0" v-bind:value="item.todo" >
-                                <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
-                                <p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>
-                            </div>
-                        </li>
+                        <!--<div v-for="search_result in kensaku" v-bind:key="search_result.id">-->
+                            <li v-for="(item,index) in todo_list" v-bind:key="item.id" v-if="item.id !== 0" style="list-style: none;">
+                                
+                                <!-- 背景色変更処理 -->
+                                <div class="app3" v-bind:style="{background: item.backgroundColor}">
+                                    <!--<p>{{ item.backgroundColor }}</p>-->
+                                    
+                                    <!-- チェックボックス　ON/OFF　処理 -->
+                                    <input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
+                                    
+                                    <!-- todo修正ボックス -->
+                                    <input type="text" v-if="item.id !== 0" v-bind:value="item.todo" >
+
+                                    <!-- todo削除 -->
+                                    <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
+
+                                    <!-- タスクの完了時刻表示 -->
+                                    <span v-if="item.checkbox === true" style="font-size: 50%;">{{ item.completed_date }}</span>
+                                    
+                                    <!--<p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>-->
+                                </div>
+                            </li>
+                        <!--</div>-->
                     </ul>
                 </div>
                 
+                
+
+
             </div>
         </section>
         

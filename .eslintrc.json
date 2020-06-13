@@ -1,7 +1,6 @@
 {
     "extends": [
-        //"plugin:Vue/recommended"
-        "plugin:vue/recommended"
+        "plugin:Vue/recommended"
     ],
     "parserOptions": {
         "sourceType": "module"

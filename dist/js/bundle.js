@@ -307,36 +307,41 @@ new Vue({
 new _vue2.default({
   el: "#app1",
   data: {
-    todo: '',
+    //todo: '',
+    //kensaku: '',
     todo_list: [{
       id: 0,
       todo: '',
-      today: ''
+      today: '',
+      checkbox: '',
+      backgroundColor: '',
+      completed_date: ''
     }],
+    //checkbox: false,
+    //styles:{
+    //    backgroundColor: 'white'
+    //},
     log: '追加ボタンが押され、「',
-    log2: '」が登録された。',
-    checkbox: false,
-    styles: {
-      backgroundColor: 'white'
-    }
+    log2: '」が登録された。'
   },
+
   methods: {
     add_todo: function add_todo() {
 
       //リスト内で一番大きいID数を認識させる
       var max = 0; // maxの初期値は限りなく小さい数値をセット
       for (var num in this.todo_list) {
-        if (num > max) {
-          max = num;
-          var new_id = max;
-        }
+        max = num + 1;
+        var new_id = max;
       }
-
       // 配列追加
       this.todo_list.push({
         id: new_id,
         todo: this.todo,
-        today: Date()
+        today: Date(),
+        checkbox: '',
+        backgroundColor: '',
+        completed_date: ''
       });
     },
 
@@ -345,15 +350,45 @@ new _vue2.default({
       this.todo_list.splice(index, 1);
     },
 
-    //check-box がonの時のbackfround-colorの指定
-    li_style: function li_style() {
-      if (this.checkbox) {
-        this.styles.backgroundColor = '#C0C0C0';
+    //check-box がonの時のbackground-colorの指定
+    li_style: function li_style(index) {
+      if (!this.todo_list[index].checkbox) {
+        this.todo_list[index].backgroundColor = '#C0C0C0'; // 挙動が意図したことと逆になっている。なぞ。
+        this.todo_list[index].completed_date = Date();
       } else {
-        this.styles.backgroundColor = 'white';
+        this.todo_list[index].backgroundColor = '#FFFFFF';
       }
     }
   }
+
+  /*
+  computed: {
+    filter_todoList: function() {
+         var todo_list = [];
+        for(var i in this.todo_list) {
+            var kensaku_list = this.todo_list[i];
+            if(kensaku_list.todo.indexOf(this.kensaku) !== -1) {
+                todo_list.push(kensaku_list);
+            }
+        }
+        return todo_list;
+    }
+  }
+  */
+
+  /*
+  computed: {
+    kensaku: function(){
+      for(var i in this.todo_list) {
+          result = this.todo_list[i];
+           if(result.todo.indexOf(this.kensaku) === -1) {
+              kensaku = 'false';
+           }
+        }
+      }
+  }
+  */
+
 });
 
 new _vue2.default({
@@ -371,6 +406,22 @@ for (const num of nums) {
   }
 }
 console.log(max) // => 3
+*/
+
+/*
+var todo_kensaku_list = [];
+
+  for(var i in this.todo_list) {
+
+      var todo_kensaku_list = this.todo_list[i];
+
+       if(user.name.indexOf(this.keyword) !== -1 {
+
+          users.push(user);
+
+      }
+    }
+  }
 */
 
 /***/ }),
