@@ -40,7 +40,7 @@ new Vue({
       //リスト内で一番大きいID数を認識させる
       let max = 0 // maxの初期値は限りなく小さい数値をセット
       for (const num in this.todo_list) {
-        max = num + 1
+        max = max + 1
         var new_id = max
       }
       // 配列追加
@@ -52,7 +52,6 @@ new Vue({
         backgroundColor: '',
         completed_date: ''
       })
-
     },
 
     // 配列を１つ削除
@@ -68,10 +67,33 @@ new Vue({
       } else {
         this.todo_list[index].backgroundColor = '#FFFFFF';
       }
-
-
     }
   },
+
+  computed: {
+    reverse_todo_list: function() {
+      
+      //(ケース1)
+      return this.todo_list.slice().reverse();
+
+      //(ケース2)
+      //return this.todo_list.slice().sort(function(a, b){
+        // 戻り値が正（b-aの差が正）のとき、aをbの前に並べ替え
+        // 戻り値が負（b-aの差が負）のとき、aをbの後ろ並べ替え
+      //  return b - a;
+      //})
+
+      //(ケース3)
+      //return this.todo_list.slice().sort(function(a, b){
+      //  if (a > b){
+      //    return 1;
+      //  }else{
+      //    return -1;
+      //  }
+      //});
+      
+    },
+  }
 
   /*
   computed: {

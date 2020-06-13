@@ -33,32 +33,56 @@
                         </table>
                 </div>
 
-                <!-- list 作成 -->
+                <!-- todo_list 未完了 -->
                 <div>
                     <ul>
-                        <!--<div v-for="search_result in kensaku" v-bind:key="search_result.id">-->
-                            <li v-for="(item,index) in todo_list" v-bind:key="item.id" v-if="item.id !== 0" style="list-style: none;">
+                        <li v-for="(item,index) in reverse_todo_list" v-bind:key="item.id" v-if="item.id !== 0 && item.checkbox !== true" style="list-style: none;">
+                            
+                            <!-- 背景色変更処理 -->
+                            <div class="app3" v-bind:style="{background: item.backgroundColor}">
+                                <!--<p>{{ item.backgroundColor }}</p>-->
                                 
-                                <!-- 背景色変更処理 -->
-                                <div class="app3" v-bind:style="{background: item.backgroundColor}">
-                                    <!--<p>{{ item.backgroundColor }}</p>-->
-                                    
-                                    <!-- チェックボックス　ON/OFF　処理 -->
-                                    <input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
-                                    
-                                    <!-- todo修正ボックス -->
-                                    <input type="text" v-if="item.id !== 0" v-bind:value="item.todo" >
+                                <!-- チェックボックス　ON/OFF　処理 -->
+                                <input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
+                                
+                                <!-- todo修正ボックス -->
+                                <input type="text" v-bind:value="item.todo" >
 
-                                    <!-- todo削除 -->
-                                    <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
+                                <!-- todo削除 -->
+                                <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
 
-                                    <!-- タスクの完了時刻表示 -->
-                                    <span v-if="item.checkbox === true" style="font-size: 50%;">{{ item.completed_date }}</span>
-                                    
-                                    <!--<p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>-->
-                                </div>
-                            </li>
+                                <!-- タスクの登録時刻表示 -->
+                                <span style="font-size: 50%;">{{ item.today }}</span>
+                                
+                                <!--<p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>-->
+                            </div>
+                        </li>
                         <!--</div>-->
+                    </ul>
+                </div>
+
+                <!-- todo_list 完了 -->
+                <div>
+                    <ul>
+                        <li v-for="(item,index) in reverse_todo_list" v-bind:key="item.id" v-if="item.id !== 0 && item.checkbox === true" style="list-style: none;">
+                            
+                            <!-- 背景色変更処理 -->
+                            <div class="app3" v-bind:style="{background: item.backgroundColor}">
+                                
+                                <!-- チェックボックス　ON/OFF　処理 -->
+                                <input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
+                                
+                                <!-- todo修正不可ボックス -->
+                                <input type="text" v-bind:value="item.todo" readonly>
+
+                                <!-- todo削除 -->
+                                <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
+
+                                <!-- タスクの完了時刻表示 -->
+                                <span v-if="item.checkbox === true" style="font-size: 50%;">{{ item.completed_date }}</span>
+                            </div>
+
+                        </li>
                     </ul>
                 </div>
                 

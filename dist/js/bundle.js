@@ -331,7 +331,7 @@ new _vue2.default({
       //リスト内で一番大きいID数を認識させる
       var max = 0; // maxの初期値は限りなく小さい数値をセット
       for (var num in this.todo_list) {
-        max = num + 1;
+        max = max + 1;
         var new_id = max;
       }
       // 配列追加
@@ -359,37 +359,60 @@ new _vue2.default({
         this.todo_list[index].backgroundColor = '#FFFFFF';
       }
     }
-  }
+  },
 
-  /*
   computed: {
-    filter_todoList: function() {
-         var todo_list = [];
-        for(var i in this.todo_list) {
-            var kensaku_list = this.todo_list[i];
-            if(kensaku_list.todo.indexOf(this.kensaku) !== -1) {
-                todo_list.push(kensaku_list);
-            }
-        }
-        return todo_list;
+    reverse_todo_list: function reverse_todo_list() {
+
+      //(ケース1)
+      return this.todo_list.slice().reverse();
+
+      //(ケース2)
+      //return this.todo_list.slice().sort(function(a, b){
+      // 戻り値が正（b-aの差が正）のとき、aをbの前に並べ替え
+      // 戻り値が負（b-aの差が負）のとき、aをbの後ろ並べ替え
+      //  return b - a;
+      //})
+
+      //(ケース3)
+      //return this.todo_list.slice().sort(function(a, b){
+      //  if (a > b){
+      //    return 1;
+      //  }else{
+      //    return -1;
+      //  }
+      //});
     }
-  }
-  */
 
-  /*
-  computed: {
-    kensaku: function(){
-      for(var i in this.todo_list) {
-          result = this.todo_list[i];
-           if(result.todo.indexOf(this.kensaku) === -1) {
-              kensaku = 'false';
-           }
-        }
+    /*
+    computed: {
+      filter_todoList: function() {
+           var todo_list = [];
+          for(var i in this.todo_list) {
+              var kensaku_list = this.todo_list[i];
+              if(kensaku_list.todo.indexOf(this.kensaku) !== -1) {
+                  todo_list.push(kensaku_list);
+              }
+          }
+          return todo_list;
       }
-  }
-  */
+    }
+    */
 
-});
+    /*
+    computed: {
+      kensaku: function(){
+        for(var i in this.todo_list) {
+            result = this.todo_list[i];
+             if(result.todo.indexOf(this.kensaku) === -1) {
+                kensaku = 'false';
+             }
+          }
+        }
+    }
+    */
+
+  } });
 
 new _vue2.default({
   el: "app4"
