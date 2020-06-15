@@ -17,19 +17,16 @@ new Vue({
     //todo: '',
     //kensaku: '',
     todo_list : [
-      {
-        id: 0,
-        todo: '',
-        today: '',
-        checkbox: '',
-        backgroundColor: '',
-        completed_date: ''
-      }
+      //{
+      //  id: 0,
+      //  todo: '',
+      //  today: '',
+      //  checkbox: '',
+      //  backgroundColor: '',
+      //  completed_date: ''
+      //}
     ],
-    //checkbox: false,
-    //styles:{
-    //    backgroundColor: 'white'
-    //},
+    //completed_todo_list :[],/////////////////////////  これに　タスク完了の配列データを入れる予定。
     log: '追加ボタンが押され、「',
     log2: '」が登録された。',
   },
@@ -37,45 +34,71 @@ new Vue({
   methods: {
     add_todo:  function(){
 
-      //リスト内で一番大きいID数を認識させる
-      let max = 0 // maxの初期値は限りなく小さい数値をセット
-      for (const num in this.todo_list) {
-        max = max + 1
-        var new_id = max
-      }
+      // id番号作成
+
+        //リスト内で一番大きいID数を認識させる
+        if(this.todo_list.id === undefined){
+          var new_id = 0
+        }
+        for (var num in this.todo_list) {
+          //if (typeof new_id == this.todo_list) { // php のisset　のようなもの。　全配列のなかに同じ物がないかどうかチェック
+          //  new_id = new_id + 2
+          //}
+          new_id = new_id + 1
+
+        }
+
       // 配列追加
       this.todo_list.push({
         id: new_id,
         todo: this.todo,
-        today: Date(),
-        checkbox: '',
-        backgroundColor: '',
-        completed_date: ''
+        today: '(新規)' + Date(),
+        checkbox: false,
+        backgroundColor: '#FFFFFF',
+        completed_date: '',
       })
+      
+      this.todo = ''//　配列追加後に htmlの　inputの値を消去し、placeholderの内容が表示されるようにする。
+      
+      // 完了用配列追加
+      /*
+        this.completed_todo_list.push({
+          id: new_id,
+          todo: this.todo,
+          checkbox: '',
+          backgroundColor: '',
+          completed_date: ''
+        })
+      */
     },
 
     // 配列を１つ削除
-    list_delete: function(index){
-      this.todo_list.splice(index,1)
+    list_delete: function(del){
+      //if(todo_list.length <= 1){ // 配列数が１以下の時
+      //  this.todo_list.new_id = 1 // 配列数が残り１の時は、new_id を　１に再設定する。これをしないと id の順番が壊れる。
+      //}
+      this.todo_list.splice(del,1) // itemId-1 の番号の配列から１つ取り除く。
+      
     },
 
-    //check-box がonの時のbackground-colorの指定
-    li_style: function(index){
-      if ( !this.todo_list[index].checkbox ) {
-        this.todo_list[index].backgroundColor = '#C0C0C0';// 挙動が意図したことと逆になっている。なぞ。
-        this.todo_list[index].completed_date = Date();
-      } else {
-        this.todo_list[index].backgroundColor = '#FFFFFF';
+    // check-box がonの時のbackground-colorの指定
+    li_style: function(itemId){
+      if ( !this.todo_list[itemId].checkbox ) {
+        this.todo_list[itemId].backgroundColor = '#C0C0C0';
+        this.todo_list[itemId].completed_date =  '(完了)' + Date();
+        
+      } else if ( this.todo_list[itemId].checkbox ) {
+        this.todo_list[itemId].backgroundColor = '#FFFFFF';
       }
     }
   },
 
   computed: {
-    
+
     reverse_todo_list: function() {
       
       //(ケース1)
-      return this.todo_list.slice().reverse();
+      return this.todo_list.slice().reverse(); // reverse()だけでは、変なリバースになるので、slice()を入れて安定的なリバースにする。
 
       //(ケース2)
       //return this.todo_list.slice().sort(function(a, b){
@@ -86,7 +109,7 @@ new Vue({
 
       //(ケース3)
       //return this.todo_list.slice().sort(function(a, b){
-      //  if (a > b){
+      //  if (a.today > b.today){
       //    return 1;
       //  }else{
       //    return -1;
@@ -94,6 +117,21 @@ new Vue({
       //});
       
     },
+
+    reverse_completed_todo_list: function() {
+     
+      return this.todo_list.slice().sort(function(a, b){
+        if (a.completed_date < b.completed_date){ // 降順の場合は　a<b　を使う
+          return 1;
+        }else{
+          return -1;
+        }
+      });
+      
+    },
+
+
+
   }
 
   /*
