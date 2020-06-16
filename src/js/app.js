@@ -2,31 +2,13 @@ import Vue from 'vue'
 
 //"eslint-plugin-vue": "^5.2.3",
 
-/*
-new Vue({
-  el: "#app",
-  data: {
-    year: (new Date()).getFullYear()
-  }
-})
-*/
-
 new Vue({
   el: "#app1",
   data: {
-    //todo: '',
-    //kensaku: '',
-    todo_list : [
-      //{
-      //  id: 0,
-      //  todo: '',
-      //  today: '',
-      //  checkbox: '',
-      //  backgroundColor: '',
-      //  completed_date: ''
-      //}
-    ],
-    //completed_todo_list :[],/////////////////////////  これに　タスク完了の配列データを入れる予定。
+    todo: '',
+    kensaku: '',
+    max_id: -1,// add_todoして配列を最初に作るする際のidを「０」にしたいので、初期設定を−１としてく。こうすることでidとtodo_listの配列の番号を一致させる。
+    todo_list : [],
     log: '追加ボタンが押され、「',
     log2: '」が登録された。',
   },
@@ -34,23 +16,11 @@ new Vue({
   methods: {
     add_todo:  function(){
 
-      // id番号作成
-
-        //リスト内で一番大きいID数を認識させる
-        if(this.todo_list.id === undefined){
-          var new_id = 0
-        }
-        for (var num in this.todo_list) {
-          //if (typeof new_id == this.todo_list) { // php のisset　のようなもの。　全配列のなかに同じ物がないかどうかチェック
-          //  new_id = new_id + 2
-          //}
-          new_id = new_id + 1
-
-        }
+      this.max_id = this.max_id + 1;
 
       // 配列追加
       this.todo_list.push({
-        id: new_id,
+        id: this.max_id,
         todo: this.todo,
         today: '(新規)' + Date(),
         checkbox: false,
@@ -59,26 +29,13 @@ new Vue({
       })
       
       this.todo = ''//　配列追加後に htmlの　inputの値を消去し、placeholderの内容が表示されるようにする。
-      
-      // 完了用配列追加
-      /*
-        this.completed_todo_list.push({
-          id: new_id,
-          todo: this.todo,
-          checkbox: '',
-          backgroundColor: '',
-          completed_date: ''
-        })
-      */
     },
 
     // 配列を１つ削除
     list_delete: function(del){
-      //if(todo_list.length <= 1){ // 配列数が１以下の時
-      //  this.todo_list.new_id = 1 // 配列数が残り１の時は、new_id を　１に再設定する。これをしないと id の順番が壊れる。
-      //}
-      this.todo_list.splice(del,1) // itemId-1 の番号の配列から１つ取り除く。
-      
+      console.log(del);
+      var del_index = this.todo_list.length - 1 - del; // 配列の中で数字を反転させる計算。
+      this.todo_list.splice(del_index,1);
     },
 
     // check-box がonの時のbackground-colorの指定
@@ -96,30 +53,10 @@ new Vue({
   computed: {
 
     reverse_todo_list: function() {
-      
-      //(ケース1)
       return this.todo_list.slice().reverse(); // reverse()だけでは、変なリバースになるので、slice()を入れて安定的なリバースにする。
-
-      //(ケース2)
-      //return this.todo_list.slice().sort(function(a, b){
-        // 戻り値が正（b-aの差が正）のとき、aをbの前に並べ替え
-        // 戻り値が負（b-aの差が負）のとき、aをbの後ろ並べ替え
-      //  return b - a;
-      //})
-
-      //(ケース3)
-      //return this.todo_list.slice().sort(function(a, b){
-      //  if (a.today > b.today){
-      //    return 1;
-      //  }else{
-      //    return -1;
-      //  }
-      //});
-      
     },
 
     reverse_completed_todo_list: function() {
-     
       return this.todo_list.slice().sort(function(a, b){
         if (a.completed_date < b.completed_date){ // 降順の場合は　a<b　を使う
           return 1;
@@ -127,11 +64,7 @@ new Vue({
           return -1;
         }
       });
-      
     },
-
-
-
   }
 
   /*
@@ -174,9 +107,7 @@ new Vue({
 
 })
 
-new Vue({
-  el: "app4",
-})
+
 
 /*
 const nums = [1, 2, 3]

@@ -12,8 +12,7 @@
         <section class="section">
             <div id="app1">
                 <!-- todo 記入 -->
-                <input v-model="todo"
-                 class="write" placeholder="ここにTODO内容を書く">
+                <input v-model="todo" class="write" placeholder="ここにTODO内容を書く">
                 
                 <!-- todo 送信 -->
                 <div clss="app2">
@@ -56,7 +55,7 @@
                                 <span style="font-size: 50%; color:red">{{ item.today }}</span>
                                 
                                 <!--<p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>-->
-                                <p v-if="item.id !== 0">{{ index }}</p>
+                                <p>{{ index }}</p>
                             </div>
                         </li>
                         <!--</div>-->
@@ -82,7 +81,7 @@
 
                                 <!-- タスクの完了時刻表示 -->
                                 <span style="font-size: 50%;">{{ item.completed_date }}</span>
-                                <p v-if="item.id !== 0">{{ index }}</p>
+                                <p>{{ index }}</p>
 
                             </div>
                         </li>
