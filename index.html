@@ -26,7 +26,7 @@
                 </div>
                 
                 <!-- 検索用 input box に値が入力された時に表示する「検索結果リスト」-->
-                <div v-if="kensaku_value === ''">
+                <div v-if="kensaku_value !== ''">
                     <div>
                         <ul>
                             <li v-for="(item,index) in kensaku" v-bind:key="item.id" style="list-style: none;">
@@ -70,7 +70,7 @@
                                     <!--<p>{{ item.backgroundColor }}</p>-->
                                     
                                     <!-- チェックボックス　ON/OFF　処理 -->
-                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox" v-on:click="li_style(item.id)" v-model="item.checkbox">
+                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
                                     
                                     <!-- todo修正ボックス -->
                                     <input type="text" v-bind:value="item.todo" >
@@ -98,7 +98,7 @@
                                 <div class="app3" v-bind:style="{background: item.backgroundColor}">
                                     
                                     <!-- チェックボックス　ON/OFF　処理 -->
-                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox" v-on:click="li_style(item.id)" v-model="item.checkbox">
+                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
                                     
                                     <!-- todo修正不可ボックス -->
                                     <input type="text" v-bind:value="item.todo" readonly>
