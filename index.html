@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,15 @@
     <link rel="stylesheet" href="dist/css/app.css">
     <script src="https://kit.fontawesome.com/cf78c0648b.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <div class="main">
         <section class="section">
             <div id="app1">
                 <!-- todo 記入 -->
-                <input v-model="todo" class="write" placeholder="ここにTODO内容を書く"><p>{{ todo }}</p>
-                
+                <input v-model="todo" class="write" placeholder="ここにTODO内容を書く">
+                <p>{{ todo }}</p>
+
                 <!-- todo 送信 -->
                 <div clss="app2">
                     <button v-on:click="add_todo" class="submit" type="submit">TODOを追加</button>
@@ -24,30 +27,34 @@
                     <i class="fas fa-search"></i>
                     <input type="text" v-model="kensaku_value" class="search" placeholder="ここに絞り込みたいキーワードを入力する">
                 </div>
-                
+
                 <!-- 検索用 input box に値が入力された時に表示する「検索結果リスト」-->
                 <div v-if="kensaku_value !== ''">
                     <div>
                         <ul>
                             <li v-for="(item,index) in kensaku" v-bind:key="item.id" style="list-style: none;">
-                                
+
                                 <!-- 背景色変更処理 -->
                                 <div class="app3" v-bind:style="{background: item.backgroundColor}">
                                     <!--<p>{{ item.backgroundColor }}</p>-->
-                                    
+
                                     <!-- チェックボックス　ON/OFF　処理 -->
-                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox" v-on:click="kensaku_li_style(item.id)" v-model="item.checkbox">
-                                    
+                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox"
+                                        v-on:click="kensaku_li_style(item.id)" v-model="item.checkbox">
+
                                     <!-- todo修正ボックス -->
-                                    <input type="text" v-bind:value="item.todo" >
+                                    <input type="text" v-bind:value="item.todo">
 
                                     <!-- todo削除 -->
-                                    <button v-on:click="kensaku_list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
+                                    <button v-on:click="kensaku_list_delete(index)" style="margin-left:10px"><i
+                                            class="fas fa-trash-alt"></i></button>
 
                                     <!-- タスクの登録時刻表示 -->
-                                    <span v-if="item.completed_date === ''" style="font-size: 50%; color:red">{{ item.today }}</span>
-                                    <span v-else-if="item.completed_date !== ''" style="font-size: 50%; color:black">{{ item.completed_date }}</span>
-                                    
+                                    <span v-if="item.completed_date === ''"
+                                        style="font-size: 50%; color:red">{{ item.today }}</span>
+                                    <span v-else-if="item.completed_date !== ''"
+                                        style="font-size: 50%; color:black">{{ item.completed_date }}</span>
+
                                     <!--<p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>-->
                                     <p>{{ index }}</p>
                                 </div>
@@ -63,24 +70,27 @@
                 <div v-if="kensaku_value === ''">
                     <div>
                         <ul>
-                            <li v-for="(item,index) in reverse_todo_list" v-bind:key="item.id" v-if="item.checkbox === false" style="list-style: none;">
-                                
+                            <li v-for="(item,index) in reverse_todo_list" v-bind:key="item.id"
+                                v-if="item.checkbox === false" style="list-style: none;">
+
                                 <!-- 背景色変更処理 -->
                                 <div class="app3" v-bind:style="{background: item.backgroundColor}">
                                     <!--<p>{{ item.backgroundColor }}</p>-->
-                                    
+
                                     <!-- チェックボックス　ON/OFF　処理 -->
-                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
-                                    
+                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox"
+                                        v-on:click="li_style(index)" v-model="item.checkbox">
+
                                     <!-- todo修正ボックス -->
-                                    <input type="text" v-bind:value="item.todo" >
+                                    <input type="text" v-bind:value="item.todo">
 
                                     <!-- todo削除 -->
-                                    <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
+                                    <button v-on:click="list_delete(index)" style="margin-left:10px"><i
+                                            class="fas fa-trash-alt"></i></button>
 
                                     <!-- タスクの登録時刻表示 -->
                                     <span style="font-size: 50%; color:red">{{ item.today }}</span>
-                                    
+
                                     <!--<p v-if="item.id !== 0">{{ log }} {{ item.todo}} {{ log2 }} {{item.today}} {{ index }}</p>-->
                                     <p>{{ index }}</p>
                                 </div>
@@ -92,19 +102,22 @@
                     <!-- 通常のtodo_list 完了リスト表示 -->
                     <div>
                         <ul>
-                            <li v-for="(item,index) in reverse_completed_todo_list" v-bind:key="item.id" v-if="item.checkbox === true" style="list-style: none;">
-                                
+                            <li v-for="(item,index) in reverse_completed_todo_list" v-bind:key="item.id"
+                                v-if="item.checkbox === true" style="list-style: none;">
+
                                 <!-- 背景色変更処理 -->
                                 <div class="app3" v-bind:style="{background: item.backgroundColor}">
-                                    
+
                                     <!-- チェックボックス　ON/OFF　処理 -->
-                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox" v-on:click="li_style(index)" v-model="item.checkbox">
-                                    
+                                    {{ item.id }}.{{item.checkbox_no}}<input type="checkbox"
+                                        v-on:click="li_style_complete(index)" v-model="item.checkbox">
+
                                     <!-- todo修正不可ボックス -->
                                     <input type="text" v-bind:value="item.todo" readonly>
 
                                     <!-- todo削除 -->
-                                    <button v-on:click="list_delete(index)" style="margin-left:10px"><i class="fas fa-trash-alt"></i></button>
+                                    <button v-on:click="list_delete(index)" style="margin-left:10px"><i
+                                            class="fas fa-trash-alt"></i></button>
 
                                     <!-- タスクの完了時刻表示 -->
                                     <span style="font-size: 50%;">{{ item.completed_date }}</span>
@@ -115,14 +128,14 @@
                         </ul>
                     </div>
                 </div>
-                
-                
+
+
 
 
             </div>
         </section>
-        
- <!--       
+
+        <!--       
         
         
         
@@ -166,10 +179,11 @@
         </section>
 
     -->
-        
-        
+
+
     </div>
-    
+
     <script src="dist/js/bundle.js"></script>
 </body>
+
 </html>
