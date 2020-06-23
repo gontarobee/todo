@@ -114,15 +114,31 @@ new Vue({
     // check-box がonの時のbackground-colorの指定
     li_style: function(itemId){
       console.log(itemId);
-      if ( !this.todo_list[itemId].checkbox ) {
-        this.todo_list[itemId].backgroundColor = '#C0C0C0';
-        this.todo_list[itemId].completed_date =  '(完了)' + Date();
+      if ( !this.reverse_todo_list[itemId].checkbox ) {
+        this.reverse_todo_list[itemId].backgroundColor = '#C0C0C0';
+        this.reverse_todo_list[itemId].completed_date =  '(完了)' + Date();
         // this.kensaku_todo_list[itemId].checkbox = true;
         // this.kensaku_todo_list[itemId].backgroundColor = '#C0C0C0';
         // this.kensaku_todo_list[itemId].completed_date =  '(完了)' + Date();
         
-      } else if ( this.todo_list[itemId].checkbox ) {
-        this.todo_list[itemId].backgroundColor = '#FFFFFF';
+      } else if ( this.reverse_todo_list[itemId].checkbox ) {
+        this.reverse_todo_list[itemId].backgroundColor = '#FFFFFF';
+        // this.kensaku_todo_list[itemId].checkbox = false;
+        // this.kensaku_todo_list[itemId].backgroundColor = '#FFFFFF';
+        // this.kensaku_todo_list[itemId].completed_date =  '';
+      }
+    },
+    li_style_complete: function(itemId){
+      console.log(itemId);
+      if ( !this.reverse_completed_todo_list[itemId].checkbox ) {
+        this.reverse_completed_todo_list[itemId].backgroundColor = '#C0C0C0';
+        this.reverse_completed_todo_list[itemId].completed_date =  '(完了)' + Date();
+        // this.kensaku_todo_list[itemId].checkbox = true;
+        // this.kensaku_todo_list[itemId].backgroundColor = '#C0C0C0';
+        // this.kensaku_todo_list[itemId].completed_date =  '(完了)' + Date();
+        
+      } else if ( this.reverse_completed_todo_list[itemId].checkbox ) {
+        this.reverse_completed_todo_list[itemId].backgroundColor = '#FFFFFF';
         // this.kensaku_todo_list[itemId].checkbox = false;
         // this.kensaku_todo_list[itemId].backgroundColor = '#FFFFFF';
         // this.kensaku_todo_list[itemId].completed_date =  '';
